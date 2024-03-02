@@ -7,20 +7,31 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class VeiculoService {
 
-    String Marcas = "";
-    public String buscaTodasMarcas() {
-        String apiAllMarca = "https://parallelum.com.br/fipe/api/v1/carros/marcas";
+    public String consultarUrl(String endpoint) {
+        String dados = "";
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiAllMarca, String.class);
-
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(endpoint, String.class);
         if(responseEntity.getStatusCode().is2xxSuccessful()){
-            apiAllMarca = responseEntity.getBody();
+            dados = responseEntity.getBody();
         }else{
-            apiAllMarca = "Não foi possivel buscar as marcas";
+            dados = "Não foi possivel buscar as marcas";
         }
+        return dados;
+    }
 
-        return apiAllMarca;
+    public String BuscaMarcas(){
+        return consultarUrl("https://parallelum.com.br/fipe/api/v1/carros/marcas");
+    }
 
+    public String ConsultaModelos(int id){
+        return consultarUrl("https://parallelum.com.br/fipe/api/v1/carros/marcas/" + id + "/modelos");
+    }
 
+    public String consultaAno(int marca, int modelo) {
+        return consultarUrl("https://parallelum.com.br/fipe/api/v1/carros/marcas/" + marca + "/modelos/" +  modelo+ "/anos");
+    }
+
+    public String consultaValor(int marca, int modelo, String ano){
+        return consultarUrl("https://parallelum.com.br/fipe/api/v1/carros/marcas/" + marca + "/modelos/" +  modelo + "/anos/" + ano);
     }
 }
