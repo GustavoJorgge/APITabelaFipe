@@ -1,7 +1,9 @@
 package com.example.tabelaFipe.controller;
 
+import com.example.tabelaFipe.repository.VeiculoRepository;
 import com.example.tabelaFipe.service.VeiculoService;
 import org.apache.catalina.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
-    VeiculoService veiculoService = new VeiculoService();
+    @Autowired
+    private VeiculoService veiculoService;
 
     @GetMapping("/marcas")
     public String BuscaMarcas(){
