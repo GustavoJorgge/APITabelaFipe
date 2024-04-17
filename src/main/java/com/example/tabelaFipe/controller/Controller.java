@@ -42,7 +42,7 @@ public class Controller {
         return veiculoService.consultaValor(marca, modelo, ano);
     }
 
-    @PutMapping("modelo/{id}")
+    @PutMapping("/{id}")
     public ModeloEntity atualizar(@PathVariable String id, @RequestBody ModeloEntity newModelo){
         return veiculoService.atualizar(id,newModelo);
     }
