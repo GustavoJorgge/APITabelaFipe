@@ -25,7 +25,6 @@ public class VeiculoService {
     @Autowired
     private ModeloRepository modeloRepository;
 
-
     public String consultarUrl(String endpoint) {
         String dados = "";
         RestTemplate restTemplate = new RestTemplate();
@@ -118,7 +117,17 @@ public class VeiculoService {
         }
     }
 
+    public ModeloEntity atualizar(String id, ModeloEntity newModelo) {
+        ModeloEntity existingModelo = modeloRepository.findById(id).orElse(null);
 
+        if(existingModelo != null){
+            existingModelo.setModelo(newModelo.getModelo());
+            existingModelo.setID_marca(newModelo.getID_marca());
+            return modeloRepository.save(existingModelo);
+        }else{
+            return null;
+        }
+    }
 
     public String consultaAno(int marca, int modelo) {
         return consultarUrl("https://parallelum.com.br/fipe/api/v1/carros/marcas/" + marca + "/modelos/" +  modelo+ "/anos");
